@@ -43,6 +43,7 @@ Angular source changes reload during development. After editing Go, restart
 | --- | --- |
 | `npm run typecheck` | Check application, worker, and unit-test TypeScript. |
 | `npm run build` | Compile Go/Wasm and create the production Angular build. |
+| `npm run build:pages` | Build production assets for the GitHub Pages project URL. |
 | `npm run build:wasm` | Rebuild only Wasm and its matching JavaScript runtime. |
 | `npm test` | Run all TypeScript and Go unit tests once. |
 | `npm run test:unit` | Run the Angular/TypeScript unit tests once. |
@@ -58,7 +59,45 @@ The generated files `public/wasm/market.wasm` and
 `src/runtime/market/generated/wasm_exec.js` are ignored by Git. The build script
 copies `wasm_exec.js` from the same Go installation used to compile the binary.
 
-Automatic deployment is not configured yet.
+## GitHub Pages and automatic deployment
+
+- Repository: <https://github.com/david-mkrtchyan-120491/realtime-fintech-dashboard>
+- Reviewer URL: <https://david-mkrtchyan-120491.github.io/realtime-fintech-dashboard/>
+- Pipeline: <https://github.com/david-mkrtchyan-120491/realtime-fintech-dashboard/actions/workflows/pages.yml>
+
+The [GitHub Actions workflow](.github/workflows/pages.yml) runs on every push to
+`master` and on pull requests targeting `master`. It installs Node from `.nvmrc`
+and Go from `go.mod`, runs `npm ci`, all unit tests, TypeScript checks, and the
+production Pages build. A successful push to `master` then deploys the build to
+GitHub Pages. Pull requests run validation without publishing. The Actions tab
+also provides a manual retry through **Run workflow**.
+
+For the initial deployment, the repository owner must select **Settings → Pages
+→ Build and deployment → Source → GitHub Actions**. This is a one-time setting;
+subsequent pushes need no manual deployment steps. The workflow uses GitHub's
+built-in token and does not need a personal token or deployment secret. See
+[GitHub's publishing-source instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+
+GitHub Pages requires a public repository on GitHub Free; private repositories
+require a supported paid plan. The reviewer URL is available after Pages is
+enabled and the first deployment succeeds. A custom domain is optional.
+
+To publish interview changes:
+
+```sh
+git add <changed-files>
+git commit -m "Describe the change"
+git push origin master
+```
+
+Wait for the workflow to finish, then refresh the demo to load the new version.
+Failed tests or builds prevent deployment and leave the previous site available.
+
+The Pages build sets the base URL to `/realtime-fintech-dashboard/`, keeping
+scripts, styles, the worker, and Wasm under the repository path. It also copies
+the application entry point to `settings/index.html` so direct Settings links
+and refreshes work on a static host, and creates `404.html` for unknown routes.
+The regular local build keeps its root URL and clean Angular routes.
 
 ## Unit tests
 

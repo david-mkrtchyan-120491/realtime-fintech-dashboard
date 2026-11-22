@@ -9,6 +9,7 @@
     "start": "ng serve --host 127.0.0.1",
     "prebuild": "npm run build:wasm",
     "build": "ng build",
+    "build:pages": "npm run build -- --configuration production,pages && node scripts/prepare-pages.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.worker.json && tsc --noEmit -p tsconfig.spec.json",
     "test": "npm run test:unit && npm run test:go",
     "pretest:unit": "npm run build:wasm",
