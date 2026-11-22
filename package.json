@@ -1,0 +1,41 @@
+{
+  "name": "realtime-fintech-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "build:wasm": "node scripts/build-wasm.mjs",
+    "prestart": "npm run build:wasm",
+    "start": "ng serve --host 127.0.0.1",
+    "prebuild": "npm run build:wasm",
+    "build": "ng build",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.worker.json && tsc --noEmit -p tsconfig.spec.json",
+    "test": "npm run test:unit && npm run test:go",
+    "pretest:unit": "npm run build:wasm",
+    "test:unit": "ng test --watch=false",
+    "pretest:watch": "npm run build:wasm",
+    "test:watch": "ng test --watch",
+    "test:go": "node scripts/test-go.mjs"
+  },
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || ^26.0.0"
+  },
+  "dependencies": {
+    "@angular/common": "22.2.6",
+    "@angular/compiler": "22.2.6",
+    "@angular/core": "22.2.6",
+    "@angular/forms": "22.2.6",
+    "@angular/platform-browser": "22.2.6",
+    "@angular/router": "22.2.6",
+    "rxjs": "~7.8.2",
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "@angular/build": "22.2.7",
+    "@angular/cli": "22.2.7",
+    "@angular/compiler-cli": "22.2.6",
+    "jsdom": "^31.0.1",
+    "typescript": "~6.0.0",
+    "vitest": "^5.1.1"
+  }
+}

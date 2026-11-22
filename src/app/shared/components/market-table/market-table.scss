@@ -1,0 +1,132 @@
+@use 'styles/index' as styles;
+
+:host(.market-table-host) {
+  display: block;
+}
+
+.market-table-view {
+  @include styles.focus-ring;
+  max-width: 100%;
+  max-height: 60dvh;
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  &:focus-visible {
+    outline-offset: -3px;
+  }
+}
+
+.market-table {
+  width: 100%;
+  min-width: 800px;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+
+  &__caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  &__head {
+    background: var(--surface-raised);
+  }
+
+  &__heading {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--surface-raised);
+    padding: 14px 20px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+
+    &--symbol {
+      padding-left: 32px;
+      text-align: left;
+    }
+  }
+
+  &__unit {
+    display: block;
+    margin-top: 3px;
+    color: var(--unit);
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  &__row {
+    height: 76px;
+  }
+
+  &__symbol {
+    padding: 20px 20px 20px 32px;
+    border-bottom: 1px solid var(--line);
+    color: var(--symbol);
+    font-size: 13px;
+    font-weight: 650;
+    text-align: left;
+  }
+
+  &__cell {
+    padding: 20px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    white-space: nowrap;
+
+    &--positive {
+      color: var(--positive);
+    }
+
+    &--negative {
+      color: var(--negative);
+    }
+  }
+}
+
+.market-table__movement-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.market-table__price {
+  display: inline-grid;
+  grid-template-columns: 1em auto;
+  column-gap: 8px;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.market-table__price--up {
+  color: var(--positive);
+}
+
+.market-table__price--down {
+  color: var(--negative);
+}
+
+.market-table__direction {
+  font-size: 10px;
+  width: 1em;
+}
+
+.market-table__price-value {
+  text-align: right;
+}

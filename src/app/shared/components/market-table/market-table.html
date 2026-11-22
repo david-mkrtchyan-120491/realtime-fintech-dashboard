@@ -1,0 +1,49 @@
+<div class="market-table-view" role="region" aria-label="Live market table" tabindex="0">
+  <table class="market-table">
+    <caption class="market-table__caption">Latest quotes and cumulative trading totals for each symbol</caption>
+
+    <thead class="market-table__head">
+    <tr class="market-table__heading-row">
+      <th class="market-table__heading market-table__heading--symbol" scope="col">Symbol</th>
+      <th class="market-table__heading" scope="col">Last price</th>
+      <th class="market-table__heading" scope="col">Spread</th>
+      <th class="market-table__heading" scope="col">Volume <span class="market-table__unit">shares</span></th>
+      <th class="market-table__heading" scope="col">VWAP</th>
+      <th class="market-table__heading" scope="col">Book imbalance</th>
+    </tr>
+    </thead>
+
+    <tbody class="market-table__body">
+      @for (row of rows(); track row.symbol) {
+        <tr class="market-table__row">
+          <th class="market-table__symbol" scope="row">{{ row.symbol }}</th>
+          <td class="market-table__cell">
+            <span class="market-table__price" [class.market-table__price--up]="row.priceDirection === direction.Up"
+                  [class.market-table__price--down]="row.priceDirection === direction.Down">
+              <span class="market-table__direction"
+                    aria-hidden="true">{{ row.priceDirection === direction.Up ? '▲' : row.priceDirection === direction.Down ? '▼' : '' }}</span>
+              <span
+                class="market-table__price-value">{{ row.lastPriceCents === null ? '—' : (row.lastPriceCents / 100 | currency:'USD':'symbol':'1.2-2') }}</span>
+              @if (row.priceDirection !== direction.Neutral) {
+                <span
+                  class="market-table__movement-label">{{ row.priceDirection === direction.Up ? 'Increased' : 'Decreased' }}
+                  since the previous displayed price</span>
+              }
+            </span>
+          </td>
+          <td
+            class="market-table__cell">{{ row.spreadCents === null ? '—' : (row.spreadCents / 100 | currency:'USD':'symbol':'1.2-2') }}
+          </td>
+          <td class="market-table__cell">{{ row.volume | number:'1.0-0' }}</td>
+          <td
+            class="market-table__cell">{{ row.vwapCents === null ? '—' : (row.vwapCents / 100 | currency:'USD':'symbol':'1.2-2') }}
+          </td>
+          <td class="market-table__cell"
+              [class.market-table__cell--positive]="row.imbalance !== null && row.imbalance > 0"
+              [class.market-table__cell--negative]="row.imbalance !== null && row.imbalance < 0">{{ row.imbalance === null ? '—' : (row.imbalance | percent:'1.1-1') }}
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

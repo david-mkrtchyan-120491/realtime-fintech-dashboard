@@ -1,0 +1,27 @@
+<section class="watchlist" aria-labelledby="watchlist-heading">
+  <div class="watchlist__header">
+    <div>
+      <h2 class="watchlist__title" id="watchlist-heading">Watchlist</h2>
+      <p class="watchlist__description">{{ market().rows.length }}
+        simulated {{ market().rows.length === 1 ? 'equity' : 'equities' }} · USD</p>
+    </div>
+    <span
+      class="watchlist__cadence">{{ market().settings.updatesPerBatch }} {{ market().settings.updatesPerBatch === 1 ? 'update' : 'updates' }}
+      / {{ market().settings.intervalMs }} ms</span>
+  </div>
+
+  @if (notice()) {
+    <p class="watchlist__loading" role="status">{{ notice() }}</p>
+  }
+
+  <app-market-table [rows]="market().rows"/>
+
+  <div class="watchlist__footer">
+    <p class="watchlist__count"><strong
+      class="watchlist__count-value">{{ market().tradesProcessed | number:'1.0-0' }}</strong> {{ market().tradesProcessed === 1 ? 'trade' : 'trades' }}
+      processed</p>
+    <p class="watchlist__count"><strong
+      class="watchlist__count-value">{{ market().batchesProcessed | number:'1.0-0' }}</strong> {{ market().batchesProcessed === 1 ? 'batch' : 'batches' }}
+    </p>
+  </div>
+</section>

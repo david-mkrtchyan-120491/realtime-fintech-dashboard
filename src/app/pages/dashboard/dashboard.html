@@ -1,0 +1,50 @@
+<section class="dashboard">
+  <div class="page-heading">
+    <div>
+      <p class="page-heading__eyebrow">YOUR WORKSPACE</p>
+      <h1 class="page-heading__title">Market overview</h1>
+      <p class="page-heading__subtitle">Live prices and cumulative trading activity across your watchlist.</p>
+    </div>
+  </div>
+
+  <app-market-watchlist
+    *appMarket="let market; onPending: pending; onEmpty: empty; onError: failure"
+    [market]="market"
+  />
+
+  <ng-template #pending let-market>
+    <app-market-watchlist
+      [market]="market"
+      notice="Starting the market engine. Waiting for the first batch…"
+    />
+  </ng-template>
+
+  <ng-template #empty let-market>
+    <section class="market-empty" role="status">
+      <h2 class="market-empty__title">No instruments to display</h2>
+      <p class="market-empty__description">Start a fresh simulation to restore your watchlist.</p>
+      <button class="market-empty__retry" type="button" (click)="market.retry()">Restart simulation</button>
+    </section>
+  </ng-template>
+
+  <ng-template #failure let-market>
+    <section class="market-error" role="alert">
+      <div>
+        <h2 class="market-error__title">The simulation stopped</h2>
+        <p class="market-error__message">{{ market.errorMessage }}</p>
+      </div>
+      <button class="market-error__retry" type="button" (click)="market.retry()">Restart simulation</button>
+    </section>
+
+    <app-market-watchlist [market]="market"/>
+  </ng-template>
+
+  <div class="metric-notes">
+    <p class="metric-notes__item"><strong class="metric-notes__label">Volume & VWAP</strong> include every trade since
+      this run started.
+    </p>
+    <p class="metric-notes__item"><strong class="metric-notes__label">Imbalance</strong> uses the latest quote. Positive
+      favors bid quantity; negative favors ask quantity.
+    </p>
+  </div>
+</section>

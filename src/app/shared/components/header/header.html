@@ -1,0 +1,32 @@
+<header class="app-header">
+  <a class="brand" routerLink="/" aria-label="Market Desk dashboard">
+    <span class="brand__mark" aria-hidden="true">m<span class="brand__arrow">↗</span></span>
+    <span>Market Desk</span>
+  </a>
+  <nav class="primary-nav" aria-label="Main navigation">
+    <a class="primary-nav__link" routerLink="/" routerLinkActive="primary-nav__link--active"
+       [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">Dashboard</a>
+    <a class="primary-nav__link" routerLink="/settings" routerLinkActive="primary-nav__link--active"
+       ariaCurrentWhenActive="page">Settings</a>
+  </nav>
+  <section class="run-controls" appMarketControls #market="marketControls" aria-label="Simulation controls">
+    <div class="run-controls__summary">
+      <span class="producer-status" [class.producer-status--pending]="market.controls().isPending"
+            [class.producer-status--paused]="market.controls().isPaused"
+            [class.producer-status--error]="market.controls().isError" role="status">
+        <span class="producer-status__indicator" aria-hidden="true"></span>
+        {{ market.controls().statusLabel }}
+      </span>
+      <p
+        class="run-controls__description">{{ market.controls().settings.instrumentCount }} {{ market.controls().settings.instrumentCount === 1 ? 'instrument' : 'instruments' }}
+        · {{ market.controls().settings.updatesPerBatch }} {{ market.controls().settings.updatesPerBatch === 1 ? 'update' : 'updates' }}
+        / {{ market.controls().settings.intervalMs }} ms</p>
+    </div>
+    <div class="run-controls__actions">
+      <button class="run-controls__button" [class.run-controls__button--resume]="market.controls().resumeAction"
+              type="button" [disabled]="!market.controls().canToggle"
+              (click)="market.toggle()">{{ market.controls().actionLabel }}
+      </button>
+    </div>
+  </section>
+</header>

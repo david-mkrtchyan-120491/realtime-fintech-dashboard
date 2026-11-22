@@ -1,0 +1,43 @@
+@use 'styles/index' as styles;
+
+.form-field {
+  &__label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--emphasis);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  &__hint {
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  &__input {
+    @include styles.focus-ring;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--input-border);
+    border-radius: 7px;
+    color: var(--text);
+    background: var(--surface);
+    font: inherit;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+
+    &--invalid {
+      border-color: var(--negative);
+    }
+  }
+
+  &__error {
+    margin: 10px 0 0;
+    color: var(--negative);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}

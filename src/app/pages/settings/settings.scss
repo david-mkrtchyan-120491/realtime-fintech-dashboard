@@ -1,0 +1,73 @@
+@use 'styles/index' as styles;
+
+.page-heading {
+  @include styles.page-heading;
+}
+
+.settings-form {
+  @include styles.panel;
+  &__header {
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--line);
+
+    @include styles.mobile {
+      padding: 24px 20px;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 650;
+    letter-spacing: -.3px;
+  }
+
+  &__description {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    padding: 32px;
+
+    @include styles.mobile {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 24px 20px;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 24px 32px;
+    border-top: 1px solid var(--line);
+
+    @include styles.mobile {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 20px;
+      padding: 24px 20px;
+    }
+  }
+
+  &__notice {
+    max-width: 660px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+}
+
+.settings-form__apply {
+  @include styles.button;
+  white-space: nowrap;
+}

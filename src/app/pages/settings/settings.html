@@ -1,0 +1,32 @@
+<div class="page-heading">
+  <div>
+    <p class="page-heading__eyebrow">YOUR WORKSPACE</p>
+    <h1 class="page-heading__title">Settings</h1>
+    <p class="page-heading__subtitle">Choose the size and pace of your next simulation.</p>
+  </div>
+</div>
+
+<form class="settings-form" [formGroup]="form" (ngSubmit)="apply()" novalidate aria-labelledby="settings-heading">
+  <div class="settings-form__header">
+    <h2 class="settings-form__title" id="settings-heading">Simulation settings</h2>
+    <p class="settings-form__description">These fields are a draft. Editing them leaves the current run untouched.</p>
+  </div>
+
+  <div class="settings-form__fields">
+    @for (field of fields; track field) {
+      <app-form-field
+        [control]="form.controls[field]"
+        [fieldId]="'settings-' + field"
+        [label]="limits[field].label"
+        [min]="limits[field].min"
+        [max]="limits[field].max"
+        [error]="errors()[field]"
+      />
+    }
+  </div>
+
+  <div class="settings-form__footer">
+    <p class="settings-form__notice">Apply starts a fresh running simulation and clears all prices and totals, even when paused or when the values are unchanged.</p>
+    <button class="settings-form__apply" type="submit" [disabled]="!canApply()">Apply</button>
+  </div>
+</form>

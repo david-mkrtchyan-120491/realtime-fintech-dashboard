@@ -1,0 +1,7 @@
+$mobile: 640px;
+$compact: 380px;
+$header-wrap: 960px;
+
+@mixin mobile { @media (max-width: $mobile) { @content; } }
+@mixin compact { @media (max-width: $compact) { @content; } }
+@mixin header-wrap { @media (max-width: $header-wrap) { @content; } }

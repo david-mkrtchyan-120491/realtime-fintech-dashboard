@@ -1,0 +1,39 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@adapters": ["./src/app/shared/adapters/index.ts"],
+      "@components/*": ["./src/app/shared/components/*"],
+      "@config": ["./src/app/shared/config/index.ts"],
+      "@contracts": ["./src/app/shared/contracts/index.ts"],
+      "@directives": ["./src/app/shared/directives/index.ts"],
+      "@enums": ["./src/app/shared/enums/index.ts"],
+      "@factories": ["./src/app/shared/factories/index.ts"],
+      "@helpers": ["./src/app/shared/helpers/index.ts"],
+      "@models": ["./src/app/shared/models/index.ts"],
+      "@policies": ["./src/app/shared/policies/index.ts"],
+      "@providers": ["./src/app/shared/providers/index.ts"],
+      "@services": ["./src/app/shared/services/index.ts"],
+      "@view-models": ["./src/app/shared/view-models/index.ts"],
+      "@pages/*": ["./src/app/pages/*"],
+      "@market": ["./src/runtime/market/index.ts"]
+    }
+  },
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

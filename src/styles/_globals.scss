@@ -1,0 +1,36 @@
+@use 'theme';
+@use 'media';
+
+html {
+  @include theme.tokens;
+  color-scheme: dark;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--canvas);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  margin: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+button, input {
+  font: inherit;
+}
+
+@include media.header-wrap {
+  html {
+    scroll-padding-top: 12rem;
+  }
+}
+
+.document__error {
+  margin: 24px;
+  color: var(--error-title);
+}
