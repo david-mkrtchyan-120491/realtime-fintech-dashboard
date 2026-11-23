@@ -3,20 +3,19 @@ name: Test, build, and deploy
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: github-pages-${{ github.ref }}
+  group: github-pages
   cancel-in-progress: false
 
 jobs:
   build:
     name: Test and build
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -52,14 +51,12 @@ jobs:
         run: npm run build:pages
 
       - name: Upload site
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist/realtime-fintech-dashboard/browser
 
   deploy:
     name: Deploy to GitHub Pages
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10

@@ -66,11 +66,12 @@ copies `wasm_exec.js` from the same Go installation used to compile the binary.
 - Pipeline: <https://github.com/david-mkrtchyan-120491/realtime-fintech-dashboard/actions/workflows/pages.yml>
 
 The [GitHub Actions workflow](.github/workflows/pages.yml) runs on every push to
-`master` and on pull requests targeting `master`. It installs Node from `.nvmrc`
-and Go from `go.mod`, runs `npm ci`, all unit tests, TypeScript checks, and the
-production Pages build. A successful push to `master` then deploys the build to
-GitHub Pages. Pull requests run validation without publishing. The Actions tab
-also provides a manual retry through **Run workflow**.
+`master`, the project's only branch. It installs Node from `.nvmrc` and Go from
+`go.mod`, runs `npm ci`, all unit tests, TypeScript checks, and the production
+Pages build. When those checks pass, the same workflow automatically deploys the
+build to GitHub Pages. Deployments run in sequence so a newer build is published
+after an older one. The Actions tab also provides a manual retry through **Run
+workflow**, restricted to `master`.
 
 For the initial deployment, the repository owner must select **Settings → Pages
 → Build and deployment → Source → GitHub Actions**. This is a one-time setting;
@@ -92,6 +93,9 @@ git push origin master
 
 Wait for the workflow to finish, then refresh the demo to load the new version.
 Failed tests or builds prevent deployment and leave the previous site available.
+The public [deployment metadata](https://david-mkrtchyan-120491.github.io/realtime-fintech-dashboard/deployment.json)
+records the deployed commit and branch, so the live version can be compared with
+the pushed commit. Local Pages builds mark both fields as `local`.
 
 The Pages build sets the base URL to `/realtime-fintech-dashboard/`, keeping
 scripts, styles, the worker, and Wasm under the repository path. It also copies
